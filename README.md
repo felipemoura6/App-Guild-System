@@ -23,21 +23,25 @@ Este projeto é um sistema de gestão de guilda que permite visualizar membros, 
   - [Radix Icons](https://www.radix-ui.com/docs/primitives)
   - [Tailwind CSS](https://tailwindcss.com/)
   - [TypeScript](https://www.typescriptlang.org/)
+  - [Axios](https://axios-http.com/)
+  - [Sonner](https://sonner.js.org/)
 
 - **Backend**:
   - [Django](https://www.djangoproject.com/)
   - [Express](https://expressjs.com/)
   - [CORS](https://github.com/expressjs/cors)
   - [Node.js](https://nodejs.org/)
+  - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+  - [MySQL](https://www.mysql.com/)
 
 ## Instalação
 
 ### Pré-requisitos
 
-Certifique-se de ter o [Node.js](https://nodejs.org/) e o [Python](https://www.python.org/downloads/) instalados em sua máquina.
+[Node.js](https://nodejs.org/) e [Python](https://www.python.org/downloads/) instalados em sua máquina.
 
 ### Clonando o Repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/felipemoura6/App-Guild-System/
+cd App-Guild-System
