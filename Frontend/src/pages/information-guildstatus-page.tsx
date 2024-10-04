@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import horde from '../assets/icon/horde_icon.png';
-import { PlayersResponse } from "../components/types";
 import { getGuildStatus } from "../api";
 
 interface GuildStatus {
@@ -8,7 +7,7 @@ interface GuildStatus {
     howManyPlayers: number;
     howManyOfficers: number;
     faction: string;
-    players: PlayersResponse[];
+    creation_date: Date;
 }
 
 export function GuildStatus() {
@@ -30,6 +29,8 @@ export function GuildStatus() {
 
         fetchGuildStatus();
     }, []);
+
+
 
     if (loading) {
         return (
@@ -86,6 +87,7 @@ export function GuildStatus() {
                 </span>
                 <p className="my-1">Membros ativos: {guildStatus[0].howManyPlayers}</p>
                 <p className="my-1">Oficiais ativos: {guildStatus[0].howManyOfficers}</p>
+                <p className="my-1">Data de criação: {new Date(guildStatus[0].creation_date).toLocaleDateString()}</p>
             </h3>
         </div>
     );

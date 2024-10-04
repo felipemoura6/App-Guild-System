@@ -16,7 +16,7 @@ interface MemberData {
 }
 
 export function NewMember() {
-  const [image, setImage] = useState("./src/assets/characters_imgs/UNKNOWN_img.png");
+  const [image, setImage] = useState("https://github.com/felipemoura6/App_Guild_System_Backup/blob/master/site-deathchasesyoou-react-radix/src/assets/characters_imgs/UNKNOWN_img.png?raw=true");
 
   const [memberData, setMemberData] = useState<MemberData>({
     name: '',
@@ -26,7 +26,7 @@ export function NewMember() {
     ranking: 'Member',
     tier: '',
     note: '',
-    image: ''
+    image: 'https://github.com/felipemoura6/App_Guild_System_Backup/blob/master/site-deathchasesyoou-react-radix/src/assets/characters_imgs/UNKNOWN_img.png?raw=true'
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -124,7 +124,7 @@ export function NewMember() {
                     </select>
 
                 </div>
-            </div>
+            </div> 
 
             <div className="block justify-center items-center">
                 <div className="inline-flex items-center">

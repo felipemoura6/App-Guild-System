@@ -66,7 +66,7 @@ export function Navbar() {
           </div>
           
           
-          <div className='flex justify-center items-center xl:max-w-[900px] lg:max-w-[768px] md:max-w-[640px] sm:max-w-[480px] max-w-[480px] '>
+          <div className='flex justify-center items-center xl:max-w-[900px] lg:max-w-[768px] md:max-w-[640px] sm:max-w-[480px] max-w-[480px] mx-auto'>
             <div className="bg-[url('./assets/textures/linum-textura-vinho.jpg')] bg-cover bg-no-repeat rounded-full p-4 mx-auto md:text-2xl text-1xl text-gray-400 grid  grid-cols-4 xl:auto-rows-[44px] jg:auto-rows-[40px] md:auto-rows-[36px] sm:auto-rows-[28px] auto-rows-[20px] gap-2 group">
 
               <DropdownMenu.Root>
@@ -186,7 +186,7 @@ export function Navbar() {
                 {isLogged ? (
                   <Link to="/user">{userData?.user_name}</Link>
                 ):(
-                <h1></h1>
+                <Link to="/login"><button className="p-4 bg-[url('./assets/textures/linum-textura-vinho.jpg')] text-white rounded-lg">Login</button></Link>  
                 )}
               </div>
           </div>

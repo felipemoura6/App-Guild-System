@@ -39,7 +39,7 @@ export function LoginPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='bg-slate-800 w-screen h-screen flex items-center justify-center'>
+    <form onSubmit={handleSubmit} className='bg-slate-800 w-full h-full flex items-center justify-center'>
       <div className='bg-slate-600 p-8 rounded-lg shadow-lg w-full max-w-md'>
         <h2 className='text-2xl text-white mb-6 text-center'>Login</h2>
         <div className='mb-4'>

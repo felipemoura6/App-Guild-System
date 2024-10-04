@@ -129,7 +129,12 @@ export function Newmember() {
                                 <p className="text-pink-100 text-sm ml-5">Note: {newMembers.note}</p>
                                 <p className={`ml-5`}>Tier: {newMembers.tier}</p>
                             </div>
-                        <img className="h-[12rem] w-[9rem] flex inset-0 mx-auto relative mt-2 mb-4" src={`.${newMembers.image}`} alt={`Image of ${newMembers.name}`} />
+                                <img 
+                                  className="h-[12rem] w-[9rem] flex inset-0 mx-auto relative mt-2 mb-4" 
+                                  src={`${newMembers.image}`} 
+                                  alt={`Image of ${newMembers.name}`} 
+                                />
+
                         </div>
                     </div>
                     <p className="text-sm text-pink-200/50 absolute top-4 right-4 p-4">

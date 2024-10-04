@@ -9,7 +9,7 @@ export interface StatusGuildResponse {
   howManyPlayers: number;
   howManyOfficers: number;
   faction: string;
-  players: PlayersResponse[];
+  creation_date: Date;
 }
 
 
