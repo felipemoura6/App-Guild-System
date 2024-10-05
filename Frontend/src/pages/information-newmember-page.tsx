@@ -17,6 +17,31 @@ export function Newmember() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const dpsIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/DPS-role.png?raw=true'
+  const tankIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/Tank-role.png?raw=true'
+  const healerIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/Healer-role.png?raw=true'
+
+  const sIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/S_png.png?raw=true'
+  const aIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/A_png.png?raw=true'
+  const bIcon = 'https://www.freeiconspng.com/thumbs/letter-b-icon-png/letter-b-icon-png-18.png'
+  const cIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/C_png.png?raw=true'
+  const dIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/D_png.png?raw=true'
+
+
+  const roleIcons: Record<string, string> = {
+    DPS: dpsIcon,
+    Healer: healerIcon,
+    Tank: tankIcon,
+  };
+
+  const tierIcons: Record<string, string> = {
+    S: sIcon,
+    A: aIcon,
+    B: bIcon,
+    C: cIcon,
+    D: dIcon,
+  };
+
   useEffect(() => {
     const fetchNewMembers = async () => {
       try {
@@ -122,8 +147,25 @@ export function Newmember() {
                         </span>
                         <div className="h-px bg-red-900/40"></div>
                         <div className="grid grid-flow-col grid-cols-2">                     
-                            <div className={`relative bg-red-900/40 h-auto m-2 px-4 pt-2 bottom-0 border-2 border-solid rounded-lg ${getTierClass(newMembers.tier)}`}>
+                            <div className={`relative bg-red-900/40 h-auto m-2 px-4 pt-2 bottom-0 border-2 border-solid rounded-lg ${getTierClass(newMembers.tier)}`}
+                            >
+
+                          <div
+                                className="absolute bg-cover size-40"
+                                style={{
+                                  backgroundImage: `url(${tierIcons[newMembers.tier]})`,
+                                  opacity: 0.2,
+                                }}
+                          />
+
+                              <div className="flex space-x-2">
                                 <p className="text-pink-100 text-sm ml-5">Class: {newMembers.class}</p>
+                                {roleIcons[newMembers.role] ? (
+                                  <img src={roleIcons[newMembers.role]} alt={`${newMembers.role} Icon`} className="size-5" />
+                                ) : (
+                                  null
+                                )}
+                              </div>
                                 <p className="text-pink-100 text-sm ml-5">Race: {newMembers.race}</p>
                                 <p className="text-pink-100 text-sm ml-5">Specialization: {newMembers.specialization}</p>
                                 <p className="text-pink-100 text-sm ml-5">Note: {newMembers.note}</p>

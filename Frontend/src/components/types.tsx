@@ -47,6 +47,7 @@ export interface PlayersResponse {
   image: string;
   ranking: string;
   date_joining: string;
+  role: string;
 }
 
 export interface NewMemberResponse {
@@ -58,6 +59,7 @@ export interface NewMemberResponse {
   note: string;
   image: string;
   ranking: string;
+  role: string;
 }
 
 export  interface UserResponse {

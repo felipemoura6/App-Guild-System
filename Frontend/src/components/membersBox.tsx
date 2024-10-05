@@ -19,10 +19,22 @@ interface MemberBoxProps {
     note: string;
     tier: string;
     image: string;
+    role: string;
   };
 }
 
 export const MemberBox: React.FC<MemberBoxProps> = ({ member }) => {
+
+  const dpsIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/DPS-role.png?raw=true'
+  const tankIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/Tank-role.png?raw=true'
+  const healerIcon = 'https://github.com/felipemoura6/App-Guild-System/blob/main/Frontend/src/assets/icon/Healer-role.png?raw=true'
+
+  const roleIcons: Record<string, string> = {
+    DPS: dpsIcon,
+    Healer: healerIcon,
+    Tank: tankIcon,
+  };
+  
 
   // Função para calcular a classe com base no valor do tier
   const getTierClass = (tier: string) => {
@@ -81,7 +93,14 @@ export const MemberBox: React.FC<MemberBoxProps> = ({ member }) => {
       <div className="h-px bg-red-900/40"></div>
       <img className="h-[22rem] w-[19rem] flex inset-0 mx-auto relative mt-2 mb-4" src={member.image} alt={`Image of ${member.name}`} />
       <div className={`relative bg-red-900/40 h-auto m-2 px-4 pt-2 bottom-0 border-2 border-solid rounded-lg ${getTierClass(member.tier)}`}>
-        <p className="text-pink-100 text-sm ml-5">Class: {member.class}</p>
+        <div className='flex space-x-2'>
+          <p className="text-pink-100 text-sm ml-5">Class: {member.class}</p>
+          {roleIcons[member.role] ? (
+            <img src={roleIcons[member.role]} alt={`${member.role} Icon`} className="size-5" />
+          ) : (
+            null
+          )}
+        </div>
         <p className="text-pink-100 text-sm ml-5">Race: {member.race}</p>
         <p className="text-pink-100 text-sm ml-5">Specialization: {member.specialization}</p>
         <p className="text-pink-100 text-sm ml-5">Note: {member.note}</p>

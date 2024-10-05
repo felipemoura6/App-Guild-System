@@ -1,5 +1,5 @@
 import { FormInputText } from "./form/formInputText";
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { toast } from 'sonner'
 import { registerNewMember } from "../api";
 //import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ interface MemberData {
   ranking: string;
   note: string;
   image: string;
+  role: string;
 }
 
 export function NewMember() {
@@ -26,6 +27,7 @@ export function NewMember() {
     ranking: 'Member',
     tier: '',
     note: '',
+    role: '',
     image: 'https://github.com/felipemoura6/App_Guild_System_Backup/blob/master/site-deathchasesyoou-react-radix/src/assets/characters_imgs/UNKNOWN_img.png?raw=true'
   });
 
@@ -42,6 +44,83 @@ export function NewMember() {
       [e.target.name]: e.target.value
     });
   };
+
+  // UseEffect para definir a role automaticamente
+  useEffect(() => {
+    switch (memberData.classe) {
+      case 'Rogue':
+      case 'Hunter':
+      case 'Mage':
+      case 'Warlock':
+        setMemberData((prevData) => ({
+          ...prevData,
+          role: 'DPS',
+          specialization: '',
+          race: '',
+        }));
+        break;
+      case 'Paladin':
+        setMemberData((prevData) => ({
+          ...prevData,
+          race: 'Blood Elf',
+          role: '',
+          specialization: '',
+        }));
+        break;
+        case 'Druid':
+        setMemberData((prevData) => ({
+          ...prevData,
+          race: 'Tauren',
+          role: '',
+          specialization: '',
+        }));
+        break;
+      // Adicione outras classes se necessário
+      default:
+        setMemberData((prevData) => ({
+          ...prevData,
+          role: '',
+          specialization: '',
+          race: ''
+        }));
+        break;
+    }
+  }, [memberData.classe]); // Sempre que a classe mudar, a role será atualizada
+
+
+  useEffect(() => {
+    switch (memberData.specialization) {
+      case 'Retribuition':
+      case 'Fury':
+      case 'Arms':
+      case 'Shadow':
+      case 'Elemental':
+      case 'Enhancement':
+      case 'Balance':
+        setMemberData((prevData) => ({
+          ...prevData,
+          role: 'DPS',
+        }));
+        break;
+      
+      case 'Holy':
+      case 'Restoration':
+      case 'Discipline':
+        setMemberData((prevData) => ({
+          ...prevData,
+          role: 'Healer',
+        }));
+        break;
+      
+      // Adicione outras classes se necessário
+      default:
+        setMemberData((prevData) => ({
+          ...prevData,
+          role: '',
+        }));
+        break;
+    }
+  }, [memberData.specialization]); // Sempre que a classe mudar, a role será atualizada
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -62,6 +141,7 @@ export function NewMember() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    console.log(memberData)
 
     if (!memberData.name || !memberData.classe|| !memberData.specialization || !memberData.race || !memberData.tier || !memberData.note) {
       toast.error('Please, informations field can not be empty!');
@@ -139,7 +219,7 @@ export function NewMember() {
                         Select specialization
                       </option>
 
-                      {memberData.classe=== "Warrior" && (
+                      {memberData.classe === "Warrior" && (
                       <>
                           <option value="Arms">Arms</option>
                           <option value="Fury">Fury</option>
@@ -217,6 +297,102 @@ export function NewMember() {
                           <option value="Feral">Feral</option>
                           <option value="Restoration">Restoration</option>
                         </>
+                      )}
+                    </select>
+                </div>
+            </div>
+
+            <div className="block justify-center items-center">
+                <div className="inline-flex items-center">
+                    <p className="text-slate-300 text-md p-3">Type new member role:</p>
+                    <select
+                      name="role"
+                      className="rounded-md px-2 py-1 border border-gray-300 shadow-md"
+                      onChange={handleSelectChange}
+                      value={memberData.role}
+                    >
+                      <option value="" disabled hidden>
+                        Select role
+                      </option>
+
+                      {memberData.classe === "Warrior" && memberData.specialization === "Arms" ? (
+                          <option value="DPS">DPS</option>
+                        ) : memberData.classe === "Warrior" && memberData.specialization === "Fury" ? (
+                          <option value="DPS">DPS</option>
+                        ) : memberData.classe === "Warrior" && memberData.specialization === "Protection" && (
+                          <>
+                            <option value="DPS">DPS</option>
+                            <option value="Tank">Tank</option>
+                          </>
+                        )}
+
+                      {memberData.classe === "Paladin" && memberData.specialization === "Retribuition" ? (
+                          <option value="DPS">DPS</option>
+                        ) : memberData.classe === "Paladin" && memberData.specialization === "Holy" ? (
+                          <option value="Healer">Healer</option>
+                        ) : memberData.classe === "Paladin" && memberData.specialization === "Protection" && (
+                          <>
+                            <option value="Tank">Tank</option>
+                            <option value="DPS">DPS</option>
+                          </>
+                        )}
+
+                      {memberData.classe=== "Death Knight" && (
+                        <>
+                          <option value="DPS">DPS</option>
+                          <option value="Tank">Tank</option>
+                        </>
+                      )}
+
+                      {memberData.classe=== "Rogue" && (
+                        <>
+                          <option value="DPS">DPS</option>
+                        </>
+                      )}
+
+                      {memberData.classe=== "Hunter" && (
+                        <>
+                          <option value="DPS">DPS</option>
+                        </>
+                      )}
+
+                      {memberData.classe === "Priest" && memberData.specialization === "Shadow" ? (
+                          <option value="DPS">DPS</option>
+                        ) : memberData.classe === "Priest" && memberData.specialization === "Holy" ? (
+                          <option value="Healer">Healer</option>
+                        ) : memberData.classe === "Priest" && memberData.specialization === "Discipline" && (
+                          <option value="Healer">Healer</option>
+                      )}
+
+                      {memberData.classe=== "Mage" && (
+                        <>
+                          <option value="DPS">DPS</option>
+                        </>
+                      )}
+
+                      {memberData.classe=== "Warlock" && (
+                        <>
+                          <option value="DPS">DPS</option>
+                        </>
+                      )}
+
+                      {memberData.classe === "Shaman" && memberData.specialization === "Enhancement" ? (
+                          <option value="DPS">DPS</option>
+                        ) : memberData.classe === "Shaman" && memberData.specialization === "Restoration" ? (
+                          <option value="Healer">Healer</option>
+                        ) : memberData.classe === "Shaman" && memberData.specialization === "Elemental" && (
+                          <option value="DPS">DPS</option>
+                      )}
+
+                      {memberData.classe === "Druid" && memberData.specialization === "Feral" ? (
+                          <>
+                            <option value="DPS">DPS</option>
+                            <option value="Tank">Tank</option>
+                          </>
+                        ) : memberData.classe === "Druid" && memberData.specialization === "Balance" ? (
+                            <option value="DPS">DPS</option>
+                        ) : memberData.classe === "Druid" && memberData.specialization === "Restoration" && (
+                          <option value="Healer">Healer</option>
                       )}
                     </select>
                 </div>
@@ -328,6 +504,7 @@ export function NewMember() {
                       onChange={handleSelectChange}
                       value={memberData.tier}
                     >
+                      <option value="">Select a tier</option>
                       <option value="S">Tier S</option>
                       <option value="A">Tier A</option>
                       <option value="B">Tier B</option>
