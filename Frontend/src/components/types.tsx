@@ -48,6 +48,7 @@ export interface PlayersResponse {
   ranking: string;
   date_joining: string;
   role: string;
+  guild_points: number;
 }
 
 export interface NewMemberResponse {
@@ -60,6 +61,7 @@ export interface NewMemberResponse {
   image: string;
   ranking: string;
   role: string;
+  guild_points: number;
 }
 
 export  interface UserResponse {

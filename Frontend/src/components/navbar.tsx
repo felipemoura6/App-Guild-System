@@ -83,7 +83,8 @@ export function Navbar() {
                     <DropdownMenu.Item><Link to="/information/news" onClick={() => handleClickNavButton('Information - News')} className={`hover:text-slate-300 ${clickedButton === 'Information - News' ? 'text-red-400' : ''}`}>News and notificatios</Link></DropdownMenu.Item>
                     <DropdownMenu.Item><Link to="/information/newmembers" onClick={() => handleClickNavButton('Information - New Members')} className={`hover:text-slate-300 ${clickedButton === 'Information - New Members' ? 'text-red-400' : ''}`}>New Members</Link></DropdownMenu.Item>
                     <DropdownMenu.Item><Link to="/information/status" onClick={() => handleClickNavButton('Information - Guild Status')} className={`hover:text-slate-300 ${clickedButton === 'Information - Status' ? 'text-red-400' : ''}`}>Status</Link></DropdownMenu.Item>
-                    
+                    <DropdownMenu.Item><Link to="/information/ranking" onClick={() => handleClickNavButton('Information - Guild Ranking')} className={`hover:text-slate-300 ${clickedButton === 'Information - Status' ? 'text-red-400' : ''}`}>Ranking</Link></DropdownMenu.Item>
+
                     <DropdownMenu.Sub>
                       <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
                         <div className="inline-flex items-center gap-1 hover:text-slate-50">
