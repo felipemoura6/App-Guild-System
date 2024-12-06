@@ -41,6 +41,11 @@ export const getNewsPlayersFromGuild = async (): Promise<PlayersResponse[]> => {
   return response.data;
 }
 
+export const getRankingPlayersFromGuild = async (): Promise<PlayersResponse[]> => {
+  const response = await axios.get<PlayersResponse[]>(`${API_URL}/information/ranking`)
+  return response.data;
+}
+
 export const registerUser = async (userData: UserData): Promise<UserData> => {
   const response = await axios.post<ApiResponse<UserData>>(`${API_URL}/register`, userData);
   return response.data.data;
