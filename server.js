@@ -65,9 +65,23 @@ app.get('/information/newmembers', (req, res) => {
   });
 });
 
+
+// Rota para listar ranking de membros da guild
+app.get('/information/ranking', (req, res) => {
+  db.query('SELECT * FROM Players ORDER BY guild_points DESC LIMIT 10', (err, results) => {
+    if (err) {
+      console.error('Erro ao listar ranking da guild:', err);
+      res.status(500).send('Erro ao listar ranking da guild');
+      return;
+    }
+    res.json(results); // Envia os resultados como JSON
+  });
+});
+
+
 // Rota para listar status da guild
 app.get('/information/status', (req, res) => {
-  db.query('SELECT * FROM Guild', (err, results) => {
+  db.query('SELECT g.*, COUNT(p.id) AS howManyPlayers FROM Guild g LEFT JOIN players p ON g.id = p.guild_id WHERE g.id = 1 GROUP BY g.id;', (err, results) => {
     if (err) {
       console.error('Erro ao listar status da guild:', err);
       res.status(500).send('Erro ao listar status da guild');
@@ -94,6 +108,18 @@ app.get('/information/welcome', (req, res) => {
   db.query('SELECT welcome FROM Guild where id=1', (err, results) => {
     if (err) {
       console.error('Erro ao listar mensagem da guild:', err);
+      res.status(500).send('Erro ao listar mensagem da guild');
+      return;
+    }
+    res.json(results); // Envia os resultados como JSON
+  });
+});
+
+// Rota para apresentar os dados da guild
+app.get('/information/status', (req, res) => {
+  db.query('SELECT count(*) FROM players WHERE guild_id = 1;', (err, results) => {
+    if (err) {
+      console.error('Erro na contagem de membros da guild:', err);
       res.status(500).send('Erro ao listar mensagem da guild');
       return;
     }
@@ -128,16 +154,15 @@ app.get('/information/news', (req, res) => {
 
 // Rota para adicionar novo membro da guild
 app.post('/newmember', (req, res) => {
-  console.log(req.body)
-  const { name, classe, race, tier, specialization, image, ranking, note } = req.body;
+  const { name, classe, race, role, tier, specialization, image, ranking, note } = req.body;
 
   if (!name || !classe || !race || !tier || !specialization) {
     return res.status(400).send('Campos obrigatórios estão faltando');
   }
 
   db.query(
-    'INSERT INTO Players (name, class, race, tier, specialization, image, ranking, note, guild_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)',
-    [name, classe, race, tier, specialization, image, ranking, note],
+    'INSERT INTO Players (name, class, race, role, tier, specialization, image, ranking, note, guild_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)',
+    [name, classe, race, role, tier, specialization, image, ranking, note],
     (err, result) => {
       if (err) {
         console.error('Erro ao registrar novo membro:', err);
