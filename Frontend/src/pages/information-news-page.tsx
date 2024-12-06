@@ -65,11 +65,11 @@ export function News() {
             <ul>
             {news.map((article) => (
                 <li key={article.id_news} className="mb-4 p-4 bg-slate-800/70 border border-black rounded-md relative">
-                <h2 className="text-lg font-bold">{article.news_name}</h2>
-                <p>{article.news_content}</p>
-                <p className="text-sm text-pink-200/50 absolute top-4 right-4">
-                    {new Date(article.news_post_date).toLocaleDateString()} {new Date(article.news_post_date).toLocaleTimeString()}
-                </p>
+                  <h2 className="text-lg font-bold">{article.news_name}</h2>
+                  <p>{article.news_content}</p>
+                  <p className="text-sm text-pink-200/50 absolute top-4 right-4">
+                      {new Date(article.news_post_date).toLocaleDateString()} {new Date(article.news_post_date).toLocaleTimeString()}
+                  </p>
                 </li>
             ))}
             </ul>

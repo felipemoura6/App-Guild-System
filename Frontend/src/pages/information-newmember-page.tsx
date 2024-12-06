@@ -169,6 +169,7 @@ export function Newmember() {
                                 <p className="text-pink-100 text-sm ml-5">Race: {newMembers.race}</p>
                                 <p className="text-pink-100 text-sm ml-5">Specialization: {newMembers.specialization}</p>
                                 <p className="text-pink-100 text-sm ml-5">Note: {newMembers.note}</p>
+                                <p className="text-pink-100 text-sm ml-5">Guild Points: {newMembers.guild_points}</p>
                                 <p className={`ml-5`}>Tier: {newMembers.tier}</p>
                             </div>
                                 <img 
