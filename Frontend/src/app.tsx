@@ -14,6 +14,7 @@ import { Navbar } from './components/navbar';
 import IllidanImg from './assets/icon/illidan.jpg'
 import { RegisterPage } from './pages/register-page';
 import { LoginPage } from './pages/login-page';
+import { RankingPage } from './pages/information-ranking-page';
 
 
 export function App() {
@@ -55,6 +56,9 @@ export function App() {
             </Route>
 
             <Route path="/information/status" element={<GuildStatus/>}>
+            </Route>
+
+            <Route path="/information/ranking" element={<RankingPage/>}>
             </Route>
 
             <Route path="/information/newmembers" element={<Newmember/>}>
