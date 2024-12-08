@@ -68,7 +68,7 @@ app.get('/information/newmembers', (req, res) => {
 
 // Rota para listar ranking de membros da guild
 app.get('/information/ranking', (req, res) => {
-  db.query('SELECT * FROM Players ORDER BY guild_points DESC LIMIT 10', (err, results) => {
+  db.query('SELECT * FROM Players ORDER BY guild_points DESC', (err, results) => {
     if (err) {
       console.error('Erro ao listar ranking da guild:', err);
       res.status(500).send('Erro ao listar ranking da guild');
