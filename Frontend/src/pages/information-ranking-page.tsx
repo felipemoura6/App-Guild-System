@@ -115,6 +115,14 @@ export function RankingPage() {
     }
   }
 
+  const getGradientColor = (index: number, total: number) => {
+    const ratio = index / (total - 1); // Normaliza o índice entre 0 e 1
+    const red = Math.round(255 * ratio); // Aumenta o vermelho
+    const green = Math.round(255 * (1 - ratio)); // Diminui o verde
+    return `rgb(${red}, ${green}, 0)`; // Retorna a cor em RGB
+  };
+  
+
   useEffect(() => {
     const fetchRanking = async () => {
       try {
@@ -160,7 +168,7 @@ export function RankingPage() {
   }
 
   return (
-    <div className="min-h-[90vh] flex flex-col">
+    <div className="w-full min-h-[90vh] flex flex-col">
       <h1 className="flex justify-center items-center text-pink-300 lg:text-[26px] md:text-[24px] sm:text-[22px] text-[18px] font-semibold md:py-3 md:px-20 py-1.5 px-8">
         Ranking
       </h1>
@@ -168,50 +176,66 @@ export function RankingPage() {
 
       {error && <p className="text-red-500">{error}</p>}
 
-      <ul className="md:py-6 md:px-20 my-6 mx-20 text-pink-200 lg:text-[22px] md:text-[20px] sm:text-[18px] text-[16px] gap-3 bg-orange-800/50 border border-black rounded-md grow">
+      <ul className="bg-red-500/20 sm:mx-4 mx-2 my-2 rounded-lg border border-black">
         {currentItems.map((player) => (
-          <li key={player.id} className="px-4 rounded-md relative">
-            <div className="grid grid-flow-col grid-cols-2 bg-red-900/80 border border-white/25 border-solid rounded-lg">
-              <div className="flex items-start justify-between">
-                <div className={`relative  h-auto mx-2 px-4 bottom-0  rounded-lg`}>
-                  <div className="flex space-x-4">
-                  <img
-                    className="h-[4rem] w-[3rem] mx-auto relative mb-1 my-auto"
-                    src={`${player.image}`}
-                    alt={`Image of ${player.name}`}
-                />  
+          <li key={player.id} className="flex items-center sm:px-3 sm:py-[1px] px-2 rounded-md">
+            <div className="sm:w-[5rem] w-[3rem]">
+              <p
+                className="mr-2 flex justify-center text-left sm:text-lg sm:w-8 text-sm w-6 font-bold border border-slate-500 rounded-3xl"
+                style={{
+                  color: getGradientColor(
+                    rankingListPlayers.findIndex(rankedPlayer => rankedPlayer.name === player.name),
+                    rankingListPlayers.length
+                  ),
+                }}
+              >
+                {rankingListPlayers.findIndex(rankedPlayer => rankedPlayer.name === player.name) + 1}
+              </p>
+
+            </div>
+            
+            <div className="flex-1 flex justify-between items-center sm:my-0 my-1 bg-red-900/80 border border-white/25 border-solid rounded-lg sm:px-4 px-2 py-1 sm:text-base text-sm">
+              <div className="flex items-center">
+                <img
+                  className="h-[4rem] w-[3rem] mr-5 ml-2 rounded border border-slate-700"
+                  src={`${player.image}`}
+                  alt={`Image of ${player.name}`}
+                />
+                
                 <div>
-                    <span className="inline-flex justify-center items-center gap-3">
-                            <img src={getMemberClass(player.class)} alt="" className="size-5"/>
-                            <h1 className={`flex text-[1.1rem] font-bold justify-center ${getColorClass(player.class)}`}>
-                            {player.name}
-                            </h1>
-                        </span>
-                        <p className="text-pink-100 text-sm mb-4">{player.note}</p>
-                </div>
-                    
-                  </div>
-                  
+                  <span className="inline-flex items-center gap-3">
+                    <img
+                      src={getMemberClass(player.class)}
+                      alt=""
+                      className="size-5"
+                    />
+                    <h1 className={`sm:text-[1.1rem] sm:font-bold text-sm ${getColorClass(player.class)}`}>
+                      {player.name}
+                    </h1>
+                  </span>
+                  <p className="text-pink-100 text-[0.75rem]">{player.note}</p>
                 </div>
               </div>
 
+              {/* Guild Points */}
+              <p className="sm:mx-2 sm:text-sm  sm:px-3 sm:py-2 mx-1 text-[0.75rem]  px-2 py-1 text-pink-100 bg-green-800 border border-green-950 rounded-[50%] ">
+                Pts: {player.guild_points}
+              </p>
             </div>
-            <p className="mx-2 bg-green-800 border border-green-950 rounded-[50%] text-sm text-pink-100 absolute top-1 right-4 py-3 px-2">
-              Pts: {player.guild_points}
-            </p>
           </li>
         ))}
       </ul>
 
-      <div className="flex justify-between items-center mt-2 px-6 bg-gray-800/20 py-4">
+
+      <div className="flex justify-between items-center mt-2 sm:px-6 bg-gray-800/20 py-4 sm:text-base text-sm">
         <button
             onClick={handleFirstPage}
             disabled={currentPage === 1}
-            className="text-white/80 hover:text-white px-4 py-2 rounded disabled:opacity-50 "
+            className="text-white/80 hover:text-white sm:px-4 py-2 rounded disabled:opacity-50 "
             >
             <div className="flex justify-center items-start">
                 <span className="inline space-x-2"><ChevronsLeft /></span>
-                Primeira
+                <p className="hidden sm:inline">Primeira</p>
             </div>
         </button>
 
@@ -222,22 +246,24 @@ export function RankingPage() {
         >
           <div className="flex justify-center items-start">
             <span className="inline space-x-2"><ChevronLeft /></span>
-            Anterior
+            <p className="hidden sm:inline">Anterior</p>
           </div>
         </button>
 
         <span className="text-white">
-          Página {currentPage} de {totalPages}
-        </span>
+          <span className="hidden sm:inline">Página {currentPage} de {totalPages}</span>
+          <span className="sm:hidden">{currentPage}/{totalPages}</span>
+        </span> 
+
 
         <button
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
-          className="text-white/80 hover:text-white px-4 py-2 rounded disabled:opacity-50 "
+          className="text-white/80 hover:text-white px-4 py-2 rounded disabled:opacity-50"
         >
           <div className="flex justify-center items-start">
             <span className="inline space-x-2"><ChevronRight /></span>
-            Próxima
+            <p className="hidden sm:inline">Próxima</p>
           </div>
         </button>
 
@@ -248,7 +274,7 @@ export function RankingPage() {
         >
           <div className="flex justify-center items-start">
             <span className="inline space-x-2"><ChevronsRight /></span>
-            Última
+              <p className="hidden sm:inline">Última</p>
           </div>
         </button>
       </div>
